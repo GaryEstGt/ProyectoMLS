@@ -9,19 +9,19 @@ namespace Lab1MLS.Models
     public class Jugador
     {
         [Key]
-        int Id { get; set; }
+        public int Id { get; set; }
         [Display(Name = "Nombre")]
-        String Name { get; set; }
+        public String Name { get; set; }
         [Display(Name = "Apellido")]
-        String LastName { get; set; }
+        public String LastName { get; set; }
         [Display(Name = "Posición")]
-        String Position { get; set; }
+        public String Position { get; set; }
         [Display(Name = "Salario Base")]
-        String SalarioBase { get; set; }
+        public String SalarioBase { get; set; }
         [Display(Name = "Salario total")]
-        String SalarioTotal { get; set; }
+        public String SalarioTotal { get; set; }
         [Display(Name = "Club")]
-        String Club { get; set; }
+        public String Club { get; set; }
     }
 
 }
