@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ListaBiblioteca
 {
-    public class Class1
+    public class DoubleLinkedList
     {
     }
 }
