@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Lab1MLS.Models;
+using ListaBiblioteca;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +13,7 @@ namespace Lab1MLS.Controllers
         // GET: Jugador
         public ActionResult Index()
         {
-            return View();
+            return View(new DoubleLinkedList<Jugador>());
         }
 
         // GET: Jugador/Details/5

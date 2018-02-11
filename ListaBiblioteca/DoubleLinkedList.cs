@@ -6,59 +6,57 @@ using System.Threading.Tasks;
 
 namespace ListaBiblioteca
 {
-    public  class DoubleLinkedList<T>
+    public class Node<T>
     {
-       public class Node<T>
+        private T element;
+        private Node<T> prev;//Anterior
+        private Node<T> next;//Siguiente
+
+        public Node(T e, Node<T> p, Node<T> n)
         {
-            private T element;
-            private Node<T> prev;//Anterior
-            private Node<T> next;//Siguiente
-
-            public Node(T e, Node<T> p, Node<T> n)
-            {
-                element = e;
-                prev = p;
-                next = n;
-            }
-
-            public T getElement()
-            {
-                return element;
-            }
-
-            public Node<T> getPrev()
-            {
-                return prev;
-            }
-
-            public void setPrev(Node<T> prev)
-            {
-                this.prev = prev;
-            }
-
-            public Node<T> getNext()
-            {
-                return next;
-            }
-
-            public void setNext(Node<T> next)
-            {
-                this.next = next;
-            }
+            element = e;
+            prev = p;
+            next = n;
         }
 
-         Node<T> header = null;//Referencia
-         Node<T> trailer = null;
+        public T getElement()
+        {
+            return element;
+        }
+
+        public Node<T> getPrev()
+        {
+            return prev;
+        }
+
+        public void setPrev(Node<T> prev)
+        {
+            this.prev = prev;
+        }
+
+        public Node<T> getNext()
+        {
+            return next;
+        }
+
+        public void setNext(Node<T> next)
+        {
+            this.next = next;
+        }
+    }
+    public  class DoubleLinkedList<T>
+    {       
+         Node<T> header;//Referencia
+         Node<T> trailer;
          int size = 0;
 
         public DoubleLinkedList()
         {
-            header = new Node<>(null, null, null);
-            trailer = new Node<>(null, header, null);
-            header.setNext(trailer);
+            header = null;
+            trailer = null;            
         }
 
-        public int size()
+        public int Getsize()
         {
             return size;
         }
@@ -66,30 +64,33 @@ namespace ListaBiblioteca
         public bool isEmpty()
         {
             bool var = true;
-             if(size == 0;){
+             if(size == 0)
+            {
                 var = true;
             }
-            else{
+            else
+            {
                 var = false;
             }
-            return var
+
+            return var;
         }
 
-        public T first()
+        public Node<T> first()
+        {
+            if (isEmpty())
+                return null;            
+            return header;
+        }
+
+        public Node<T> last()
         {
             if (isEmpty())
                 return null;
-            return header.getNext().getElement();
+            return trailer;
         }
 
-        public E last()
-        {
-            if (isEmpty())
-                return null;
-            return trailer.getPrev().getElement();
-        }
-
-        public void addFirst(E e)
+        public void addFirst(Node<T> e)
         {
             addBetween(e, header, header.getNext());
         }
