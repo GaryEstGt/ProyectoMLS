@@ -6,130 +6,208 @@ using System.Threading.Tasks;
 
 namespace ListaBiblioteca
 {
-    public class Node<T>
+    public class Nodo<T>
     {
-        private T element;
-        private Node<T> prev;//Anterior
-        private Node<T> next;//Siguiente
+        public T info { get; set; }
+        public Nodo<T> siguiente { get; set; }
+        public Nodo<T> anterior { get; set; }
 
-        public Node(T e, Node<T> p, Node<T> n)
+        public Nodo(T Info)
         {
-            element = e;
-            prev = p;
-            next = n;
-        }
-
-        public T getElement()
-        {
-            return element;
-        }
-
-        public Node<T> getPrev()
-        {
-            return prev;
-        }
-
-        public void setPrev(Node<T> prev)
-        {
-            this.prev = prev;
-        }
-
-        public Node<T> getNext()
-        {
-            return next;
-        }
-
-        public void setNext(Node<T> next)
-        {
-            this.next = next;
-        }
+            info = Info;
+            siguiente = null;
+            anterior = null;
+        }        
     }
-    public  class DoubleLinkedList<T>
-    {       
-         Node<T> header;//Referencia
-         Node<T> trailer;
-         int size = 0;
 
-        public DoubleLinkedList()
+    public class ListaDoblementeEnlazada<T>
+    {
+        Nodo<T> Inicio;
+        Nodo<T> Fin;
+
+        public ListaDoblementeEnlazada()
         {
-            header = null;
-            trailer = null;            
+            Inicio = null;
+            Fin = null;
         }
 
-        public int Getsize()
-        {
-            return size;
-        }
+        //public void InsertarInicio(T datos)
+        //{
+        //    Nodo<T> nuevo = new Nodo<T>(datos);            
 
-        public bool isEmpty()
+        //    if (Inicio == null)
+        //    {
+        //        Inicio = nuevo;
+        //        Fin = nuevo;
+        //    }
+        //    else
+        //    {
+        //        nuevo.siguiente = Inicio;
+        //        Inicio.anterior = nuevo;
+        //        Inicio = nuevo;
+        //    }
+        //}
+
+        public void InsertarFinal(T datos)
         {
-            bool var = true;
-             if(size == 0)
+            Nodo<T> nuevo = new Nodo<T>(datos);            
+
+            if (Inicio == null)
             {
-                var = true;
+                Inicio = nuevo;
+                Fin = nuevo;
             }
             else
             {
-                var = false;
+                Fin.siguiente = nuevo;
+                nuevo.anterior = Fin;
+                Fin = nuevo;
+            }
+        }
+
+        //public void InsertarOrden(T datos)
+        //{
+        //    Nodo<T> nuevo = new Nodo<T>(datos);            
+
+        //    if (Inicio == null)
+        //    {
+        //        Inicio = nuevo;
+        //        Fin = nuevo;
+        //    }
+        //    else
+        //    {
+        //        if (nuevo->info.numero < Inicio.info)
+        //        {
+        //            nuevo->siguiente = Inicio;
+        //            Inicio->anterior = nuevo;
+        //            Inicio = nuevo;
+        //        }
+        //        else
+        //        {
+        //            Nodo* temp1 = Inicio;
+
+        //            while ((nuevo->info.numero > temp1->info.numero) && (temp1 != Fin))
+        //            {
+        //                if (nuevo->info.numero <= temp1->siguiente->info.numero)
+        //                {
+        //                    break;
+        //                }
+        //                temp1 = temp1->siguiente;
+        //            }
+
+        //            if (temp1 == Fin)
+        //            {
+        //                nuevo->siguiente = temp1->siguiente;
+        //                nuevo->anterior = temp1;
+        //                temp1->siguiente = nuevo;
+        //                Fin = nuevo;
+
+        //            }
+        //            else
+        //            {
+        //                nuevo->siguiente = temp1->siguiente;
+        //                temp1->siguiente->anterior = nuevo;
+        //                nuevo->anterior = temp1;
+        //                temp1->siguiente = nuevo;
+        //            }
+
+
+        //        }
+
+        //    }
+        //}
+
+        //public bool ExisteValor(T valor)
+        //{
+        //    bool existe = false;
+
+        //    Nodo<T> aux = Inicio;
+        //    while (aux != Fin)
+        //    {
+        //        if (aux.info == valor)
+        //        {
+        //            existe = true;
+        //            break;
+        //        }
+        //        else
+        //        {
+        //            aux = aux->siguiente;
+        //        }
+
+        //    }
+
+        //    return existe;
+        //}
+
+        //public void EliminarInicio()
+        //{
+        //    Nodo* temp = Inicio;
+        //    Inicio = Inicio->siguiente;
+        //    Inicio->anterior = null;
+        //    Marshal.FreeHGlobal((IntPtr)temp);
+        //    temp = null;
+        //}
+
+        //public void Eliminar_ultimo()
+        //{
+        //    Nodo* aux = Inicio;
+        //    while (aux->siguiente != Fin)
+        //    {
+        //        aux = aux->siguiente;
+        //    }
+
+        //    Nodo* temp = aux->siguiente;
+        //    aux->siguiente = null;
+        //    Fin = aux;
+        //    Marshal.FreeHGlobal((IntPtr)temp);
+        //    temp = null;
+        //}
+
+        //public void Eliminar_especifico(int valor)
+        //{
+        //    Nodo* aux = Inicio;
+        //    if (aux->info.numero == valor)
+        //    {
+        //        Nodo* temp = Inicio;
+        //        Inicio = aux->siguiente;
+        //        Inicio->anterior = null;
+        //        Marshal.FreeHGlobal((IntPtr)temp);
+        //        temp = null;
+        //    }
+        //    else
+        //    {
+        //        if (ExisteValor(valor))
+        //        {
+        //            while (aux->siguiente->info.numero != valor)
+        //            {
+        //                aux = aux->siguiente;
+        //            }
+
+        //            Nodo* temp = aux->siguiente;
+        //            aux->siguiente = aux->siguiente->siguiente;
+        //            aux->siguiente->anterior = aux;
+        //            Marshal.FreeHGlobal((IntPtr)temp);
+        //            temp = null;
+        //        }
+
+        //    }
+        //}
+
+        public List<T> where(Func<T, bool> delegado)
+        {
+            var filtered = new List<T>();
+            var aux = Inicio;
+
+            while (aux != null)
+            {
+                if (delegado.Invoke(aux.info))
+                {
+                    filtered.Add(aux.info);
+                    aux = aux.siguiente;
+                }
             }
 
-            return var;
+            return filtered;
         }
-
-        public Node<T> first()
-        {
-            if (isEmpty())
-                return null;            
-            return header;
-        }
-
-        public Node<T> last()
-        {
-            if (isEmpty())
-                return null;
-            return trailer;
-        }
-
-        public void addFirst(Node<T> e)
-        {
-            addBetween(e, header, header.getNext());
-        }
-
-        public void addLast(E e)
-        {
-            addBetween(e, trailer.getPrev(), trailer);
-        }
-
-        public E removeFirst()
-        {
-            if (isEmpty())
-                return null;
-            return remove(header.getNext());
-        }
-        public E removeLast()
-        {
-            if (isEmpty())
-                return null;
-            return remove(trailer.getPrev());
-        }
-
-        private void addBetween(E e, Node<E> predecessor, Node<E> successor)
-        {
-            Node<E> newest = new Node<>(e, predecessor, successor);
-            predecessor.setNext(newest);
-            successor.setPrev(newest);
-            size++;
-        }
-
-        private E remove(Node<E> node)
-        {
-            Node<E> predecessor = node.getPrev();
-            Node<E> successor = node.getNext();
-            predecessor.setNext(successor);
-            successor.setPrev(predecessor);
-            size--;
-            return node.getElement();
-        }
-
     }
 }
