@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lab1MLS.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,22 +8,20 @@ namespace Lab1MLS
 {
     public class Data
     {
-        private static Data instance = null;        
-
-        private Data()
+        private static Data Instance;
+        public static Data instance
         {
 
-        }
-
-        public static Data Instance()
-        {
-            if (instance == null)
+            get
             {
-                if (instance == null)
-                    instance = new Data();                
+                if (Instance == null)
+                {
+                    Instance = new Data();
+                }
+                return Instance;
             }
-
-            return instance;
+            set { Instance = value; }
         }
+        public List<Jugador> Jugadores = new List<Jugador>();
     }
 }
