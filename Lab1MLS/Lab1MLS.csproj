@@ -274,6 +274,7 @@
     <Content Include="Views\Jugador\Index.cshtml" />
     <Content Include="Views\Jugador\Create.cshtml" />
     <Content Include="Views\Jugador\CrearPorArchivo.cshtml" />
+    <Content Include="Views\Jugador\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

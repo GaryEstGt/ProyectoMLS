@@ -36,7 +36,16 @@ namespace Lab1MLS.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
+                Data.instance.Jugadores.Add(new Jugador
+                {
+                    Id = Data.instance.Jugadores.Count + 1,
+                    Name = collection["Name"],
+                    LastName = collection["LastName"],
+                    Position = collection["Position"],
+                    SalarioBase = collection["SalarioBase"],
+                    SalarioTotal = collection["SalarioTotal"],
+                    Club = collection["Club"]
+                });
                 return RedirectToAction("Index");
             }
             catch
