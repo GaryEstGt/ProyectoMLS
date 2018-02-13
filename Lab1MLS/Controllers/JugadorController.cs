@@ -122,7 +122,21 @@ namespace Lab1MLS.Controllers
             try
             {
                 // TODO: Add update logic here
+                Jugador j1 = new Jugador
+                {
+                    Name = collection["Name"],
+                    LastName = collection["LastName"],
+                    Position = collection["Position"],
+                    SalarioBase = collection["SalarioBase"],
+                    SalarioTotal = collection["SalarioTotal"],
+                    Club = collection["Club"]
+                };
+                Data.instance.Jugadores.RemoveAt(id-1);
+                Data.instance.Jugadores.Insert(id-1, j1);
+                {
 
+                }
+                
                 return RedirectToAction("Index");
             }
             catch
