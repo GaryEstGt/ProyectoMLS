@@ -1,10 +1,11 @@
 ﻿@model Lab1MLS.Models.Jugador
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "CrearPorArchivo";
 }
 
-<h2>Ingresar Datos</h2>
+<h2>CrearPorArchivo</h2>
+
 
 @using (Html.BeginForm()) 
 {
@@ -68,6 +69,11 @@
             </div>
         </div>
     </div>
+}
+@using (Html.BeginForm("CrearPorArchivo", "Jugador", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="postedFile" />
+    <input type="submit" value="Importar" />
 }
 
 

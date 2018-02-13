@@ -273,9 +273,11 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Jugador\Index.cshtml" />
     <Content Include="Views\Jugador\Create.cshtml" />
+    <Content Include="Views\Jugador\CrearPorArchivo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

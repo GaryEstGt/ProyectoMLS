@@ -11,11 +11,11 @@ namespace Lab1MLS.Controllers
 {
     public class JugadorController : Controller
     {
+
         // GET: Jugador
         public ActionResult Index()
-        {
-            return View(new List<Jugador> { new Jugador { Id = 1, Name = "Gary", LastName = "Moran", Club = "Chicago Fire", Position = "D", SalarioBase = "100000", SalarioTotal = "12341234" },
-            new Jugador { Id = 1, Name = "Gary", LastName = "Moran", Club = "Chicago Fire", Position = "D", SalarioBase = "100000", SalarioTotal = "12341234" }});
+        {            
+            return View(Data.instance.Jugadores);
         }
 
         // GET: Jugador/Details/5
@@ -69,25 +69,30 @@ namespace Lab1MLS.Controllers
                     string extension = Path.GetExtension(postedFile.FileName);
                     postedFile.SaveAs(filePath);
 
+                    int contLinea = 0;
                     string csvData = System.IO.File.ReadAllText(filePath);                    
                     foreach (string row in csvData.Split('\n'))
                     {
-                        if (!string.IsNullOrEmpty(row))
+                        if (contLinea!= 0)
                         {
-                            Data.instance.Jugadores.Add(new Jugador
+                            if (!string.IsNullOrEmpty(row))
                             {
-                                Id = Convert.ToInt32(row.Split(',')[0]),
-                                Name = row.Split(',')[1],
-                                LastName = row.Split(',')[2],
-                                Position = row.Split(',')[3],
-                                SalarioBase = row.Split(',')[4],
-                                SalarioTotal = row.Split(',')[5],
-                                Club = row.Split(',')[6]
-                            });
+                                Data.instance.Jugadores.Add(new Jugador
+                                {
+                                    Id = Data.instance.Jugadores.Count + 1,
+                                    Club = row.Split(',')[0],
+                                    LastName = row.Split(',')[1],
+                                    Name = row.Split(',')[2],
+                                    Position = row.Split(',')[3],
+                                    SalarioBase = row.Split(',')[4],
+                                    SalarioTotal = row.Split(',')[5]
+                                });
+                            }
                         }
+                        contLinea++;
                     }
                 }
-                return View();
+                return RedirectToAction("Index");
             }
             catch
             {
