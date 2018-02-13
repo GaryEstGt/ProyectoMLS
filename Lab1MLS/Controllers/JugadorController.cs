@@ -56,7 +56,7 @@ namespace Lab1MLS.Controllers
         {
             try
             {
-                Data.Instance
+                
                 string filePath = string.Empty;
                 if (postedFile != null)
                 {
@@ -74,16 +74,20 @@ namespace Lab1MLS.Controllers
                     {
                         if (!string.IsNullOrEmpty(row))
                         {
-                            customers.Add(new Jugador
+                            Data.instance.Jugadores.Add(new Jugador
                             {
                                 Id = Convert.ToInt32(row.Split(',')[0]),
                                 Name = row.Split(',')[1],
-                                Pais = row.Split(',')[2]
+                                LastName = row.Split(',')[2],
+                                Position = row.Split(',')[3],
+                                SalarioBase = row.Split(',')[4],
+                                SalarioTotal = row.Split(',')[5],
+                                Club = row.Split(',')[6]
                             });
                         }
                     }
                 }
-                return View(customers);
+                return View();
             }
             catch
             {
