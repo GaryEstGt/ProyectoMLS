@@ -316,7 +316,7 @@ namespace Lab1MLS.Controllers
                         Data.instance.tipoDeLista = 1;
                         break;
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("");
             }
             catch
             {

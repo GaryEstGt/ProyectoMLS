@@ -9,10 +9,10 @@
 <p>
     @using (Html.BeginForm("Busqueda", "Jugador", FormMethod.Post))
     {
-        <input type="submit" name="submitButton" value="Nombre/Apellido" />
-        <input type="submit" name="submitButton" value="Posicion" />
-        <input type="submit" name="submitButton" value="Salario" />
-        <input type="submit" name="submitButton" value="Club" />
+        @Html.RadioButton("Nombre/Apellido","opcion1")
+        @Html.RadioButton("Posicion", "opcion2")
+        @Html.RadioButton("Salario", "opcion3")
+        @Html.RadioButton("Club", "opcion4")
     }
 </p>
 @using (Html.BeginForm())
