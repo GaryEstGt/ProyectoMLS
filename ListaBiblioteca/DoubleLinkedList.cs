@@ -117,81 +117,73 @@ namespace ListaBiblioteca
         //    }
         //}
 
-        //public bool ExisteValor(T valor)
-        //{
-        //    bool existe = false;
+        public bool ExisteValor(T valor)
+        {
+            bool existe = false;
 
-        //    Nodo<T> aux = Inicio;
-        //    while (aux != Fin)
-        //    {
-        //        if (aux.info == valor)
-        //        {
-        //            existe = true;
-        //            break;
-        //        }
-        //        else
-        //        {
-        //            aux = aux->siguiente;
-        //        }
+            Nodo<T> aux = Inicio;
+            while (aux != Fin)
+            {
+                if (aux.info.Equals(valor))
+                {
+                    existe = true;
+                    break;
+                }
+                else
+                {
+                    aux = aux.siguiente;
+                }
 
-        //    }
+            }
 
-        //    return existe;
-        //}
+            return existe;
+        }
 
         //public void EliminarInicio()
         //{
-        //    Nodo* temp = Inicio;
-        //    Inicio = Inicio->siguiente;
-        //    Inicio->anterior = null;
-        //    Marshal.FreeHGlobal((IntPtr)temp);
-        //    temp = null;
+        //    Nodo<T> temp = Inicio;
+        //    Inicio = Inicio.siguiente;
+        //    Inicio.anterior = null;        
         //}
 
         //public void Eliminar_ultimo()
         //{
-        //    Nodo* aux = Inicio;
-        //    while (aux->siguiente != Fin)
+        //    Nodo<T> aux = Inicio;
+        //    while (!aux.siguiente.equals(Fin))
         //    {
-        //        aux = aux->siguiente;
+        //        aux = aux.siguiente;
         //    }
 
-        //    Nodo* temp = aux->siguiente;
-        //    aux->siguiente = null;
-        //    Fin = aux;
-        //    Marshal.FreeHGlobal((IntPtr)temp);
-        //    temp = null;
+        //    Nodo<T> temp = aux.siguiente;
+        //    aux.siguiente = null;
+        //    Fin = aux;        
         //}
 
-        //public void Eliminar_especifico(int valor)
-        //{
-        //    Nodo* aux = Inicio;
-        //    if (aux->info.numero == valor)
-        //    {
-        //        Nodo* temp = Inicio;
-        //        Inicio = aux->siguiente;
-        //        Inicio->anterior = null;
-        //        Marshal.FreeHGlobal((IntPtr)temp);
-        //        temp = null;
-        //    }
-        //    else
-        //    {
-        //        if (ExisteValor(valor))
-        //        {
-        //            while (aux->siguiente->info.numero != valor)
-        //            {
-        //                aux = aux->siguiente;
-        //            }
+        public void Eliminar_especifico(T valor)
+        {
+            Nodo<T> aux = Inicio;
+            if (aux.info.Equals(valor))
+            {
+                Nodo<T> temp = Inicio;
+                Inicio = aux.siguiente;
+                Inicio.anterior = null;               
+            }
+            else
+            {
+                if (ExisteValor(valor))
+                {
+                    while (!aux.siguiente.info.Equals(valor))
+                    {
+                        aux = aux.siguiente;
+                    }
 
-        //            Nodo* temp = aux->siguiente;
-        //            aux->siguiente = aux->siguiente->siguiente;
-        //            aux->siguiente->anterior = aux;
-        //            Marshal.FreeHGlobal((IntPtr)temp);
-        //            temp = null;
-        //        }
+                    Nodo<T> temp = aux.siguiente;
+                    aux.siguiente = aux.siguiente.siguiente;
+                    aux.siguiente.anterior = aux;                    
+                }
 
-        //    }
-        //}
+            }
+        }
 
         public List<T> where(Func<T, bool> delegado)
         {
