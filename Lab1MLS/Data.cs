@@ -22,6 +22,9 @@ namespace Lab1MLS
             }
             set { Instance = value; }
         }
-        public List<Jugador> Jugadores = new List<Jugador>();
+        public LinkedList<Jugador> Jugadores = new LinkedList<Jugador>();
+        public int contador = 1;
+        public int contador2 = 1;
+        public int Ultimonumero = 0;
     }
 }

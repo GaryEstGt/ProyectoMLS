@@ -11,6 +11,7 @@ namespace Lab1MLS.Controllers
 {
     public class JugadorController : Controller
     {
+   
 
         // GET: Jugador
         public ActionResult Index()
@@ -36,7 +37,7 @@ namespace Lab1MLS.Controllers
         {
             try
             {
-                Data.instance.Jugadores.Add(new Jugador
+                Data.instance.Jugadores.AddLast(new Jugador
                 {
                     Id = Data.instance.Jugadores.Count + 1,
                     Name = collection["Name"],
@@ -86,7 +87,7 @@ namespace Lab1MLS.Controllers
                         {
                             if (!string.IsNullOrEmpty(row))
                             {
-                                Data.instance.Jugadores.Add(new Jugador
+                                Data.instance.Jugadores.AddLast(new Jugador
                                 {
                                     Id = Data.instance.Jugadores.Count + 1,
                                     Club = row.Split(',')[0],
@@ -131,8 +132,10 @@ namespace Lab1MLS.Controllers
                     SalarioTotal = collection["SalarioTotal"],
                     Club = collection["Club"]
                 };
-                Data.instance.Jugadores.RemoveAt(id-1);
-                Data.instance.Jugadores.Insert(id-1, j1);
+                Jugador j2=Data.instance.Jugadores.ElementAt(id-1);
+                 LinkedListNode<Jugador> j3 = Data.instance.Jugadores.Find(j2);              
+                Data.instance.Jugadores.AddBefore(j3,j1);
+                Data.instance.Jugadores.Remove(j2);
                 {
 
                 }
@@ -158,7 +161,29 @@ namespace Lab1MLS.Controllers
             try
             {
                 // TODO: Add delete logic here
-
+                Jugador j1;
+                if (Data.instance.Ultimonumero > id)
+                {
+                    j1 = Data.instance.Jugadores.ElementAt(id - 1);
+                    Data.instance.contador++;
+                }
+                else
+                {
+                    if (id < Data.instance.contador)
+                    {
+                        j1 = Data.instance.Jugadores.ElementAt(id - Data.instance.contador2);
+                        Data.instance.contador2++;
+                        Data.instance.contador++;
+                    }
+                    else
+                    {
+                        j1 = Data.instance.Jugadores.ElementAt(id - Data.instance.contador);
+                        Data.instance.contador++;
+                    }
+                }
+              
+                Data.instance.Ultimonumero = id;
+                Data.instance.Jugadores.Remove(j1);
                 return RedirectToAction("Index");
             }
             catch
