@@ -294,5 +294,32 @@ namespace Lab1MLS.Controllers
                 return View();
             }
         }
+        public ActionResult Busqueda()
+        {
+            return View();
+        }
+
+        // POST: Jugador/ElegirLista
+        [HttpPost]
+        public ActionResult Busqueda(string submitButton, string submitButton2,FormCollection collection)
+        {
+            try
+            {
+                switch (submitButton)
+                {
+                    case "Lista Genérica":
+                        Data.instance.tipoDeLista = 0;
+                        break;
+                    case "Lista Propia":
+                        Data.instance.tipoDeLista = 1;
+                        break;
+                }
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
     }
 }
