@@ -240,8 +240,8 @@ namespace Lab1MLS.Controllers
         {
             try
             {
-
-                string filePath = string.Empty;
+                  LinkedList<Jugador> JugadoresEliminados = new LinkedList<Jugador>();
+        string filePath = string.Empty;
                 if (postedFile != null)
                 {
                     string path = Server.MapPath("~/Uploads/");

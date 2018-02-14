@@ -10,7 +10,7 @@
 <div>
     <h4>Jugador</h4>
     <hr />
-       @using (Html.BeginForm("CrearPorArchivo", "Jugador", FormMethod.Post, new { enctype = "multipart/form-data" }))
+       @using (Html.BeginForm("EliminarPorArchivo", "Jugador", FormMethod.Post, new { enctype = "multipart/form-data" }))
        {
         <input type="file" name="postedFile" />
         <input type="submit" value="Eliminar" />
