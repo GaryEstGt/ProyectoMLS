@@ -276,6 +276,7 @@
     <Content Include="Views\Jugador\CrearPorArchivo.cshtml" />
     <Content Include="Views\Jugador\Edit.cshtml" />
     <Content Include="Views\Jugador\Delete.cshtml" />
+    <Content Include="Views\Jugador\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
