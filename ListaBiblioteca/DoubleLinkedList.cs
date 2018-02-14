@@ -163,8 +163,7 @@ namespace ListaBiblioteca
         {
             Nodo<T> aux = Inicio;
             if (aux.info.Equals(valor))
-            {
-                Nodo<T> temp = Inicio;
+            {                
                 Inicio = aux.siguiente;
                 Inicio.anterior = null;               
             }
@@ -176,8 +175,7 @@ namespace ListaBiblioteca
                     {
                         aux = aux.siguiente;
                     }
-
-                    Nodo<T> temp = aux.siguiente;
+                    
                     aux.siguiente = aux.siguiente.siguiente;
                     aux.siguiente.anterior = aux;                    
                 }

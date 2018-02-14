@@ -21,7 +21,7 @@ namespace Lab1MLS.Controllers
 
         // GET: Jugador/Details/5
         public ActionResult Details(int id)
-        {
+        {                                  
             return View();
         }
 
