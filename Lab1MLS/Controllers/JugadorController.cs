@@ -204,10 +204,7 @@ namespace Lab1MLS.Controllers
             }
             return View(j2);
         }
-        public ActionResult EliminarPorArchivo()
-        {
-            return View();
-        }
+       
 
         // POST: Jugador/Delete/5
         [HttpPost]
@@ -232,6 +229,10 @@ namespace Lab1MLS.Controllers
             {
                 return View();
             }
+        }
+        public ActionResult EliminarPorArchivo()
+        {
+            return View();
         }
         // POST: Jugador/Create
         [HttpPost]
