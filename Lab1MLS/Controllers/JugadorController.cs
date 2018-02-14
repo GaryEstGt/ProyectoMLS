@@ -276,18 +276,16 @@ namespace Lab1MLS.Controllers
                         contLinea++;
                     }
                 }
-                Jugador j3 = null;
                 foreach (var j1 in JugadoresEliminados)
                 {
                     foreach (var j2 in Data.instance.Jugadores)
                     {
                         if(j1.Name.Equals(j2.Name) && j1.LastName.Equals(j2.LastName))
-                        {
-                            j3 = j1;
-                            Data.instance.Jugadores.Remove(j3);
+                        { 
+                            Data.instance.Jugadores.Remove(j2);
+                            break;
                         }
                     }
-                    Data.instance.Jugadores.Remove(j1);
                 }
                 return RedirectToAction("Index");
             }
