@@ -21,8 +21,17 @@ namespace Lab1MLS.Controllers
 
         // GET: Jugador/Details/5
         public ActionResult Details(int id)
-        {                                  
-            return View();
+        {
+            Jugador j2=null;
+            foreach (var j1 in Data.instance.Jugadores)
+            {
+                if (j1.Id==id)
+                {
+                    j2 = j1;
+                    break;
+                }
+            }
+            return View(j2);
         }
 
         // GET: Jugador/Create
@@ -132,10 +141,16 @@ namespace Lab1MLS.Controllers
                     SalarioTotal = collection["SalarioTotal"],
                     Club = collection["Club"]
                 };
-                Jugador j2=Data.instance.Jugadores.ElementAt(id-1);
-                 LinkedListNode<Jugador> j3 = Data.instance.Jugadores.Find(j2);              
-                Data.instance.Jugadores.AddBefore(j3,j1);
-                Data.instance.Jugadores.Remove(j2);
+                foreach (var j2 in Data.instance.Jugadores)
+                {
+                    if (j2.Id == id)
+                    {
+                       LinkedListNode<Jugador> j3= Data.instance.Jugadores.Find(j2);
+                        Data.instance.Jugadores.AddBefore(j3, j1);
+                        Data.instance.Jugadores.Remove(j2);
+                        break;
+                    }
+                }
                 {
 
                 }
@@ -151,7 +166,16 @@ namespace Lab1MLS.Controllers
         // GET: Jugador/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            Jugador j2 = null;
+            foreach (var j1 in Data.instance.Jugadores)
+            {
+                if (j1.Id == id)
+                {
+                    j2 = j1;
+                    break;
+                }
+            }
+            return View(j2);
         }
 
         // POST: Jugador/Delete/5
@@ -161,29 +185,16 @@ namespace Lab1MLS.Controllers
             try
             {
                 // TODO: Add delete logic here
-                Jugador j1;
-                if (Data.instance.Ultimonumero > id)
+                
+                foreach (var j2 in Data.instance.Jugadores)
                 {
-                    j1 = Data.instance.Jugadores.ElementAt(id - 1);
-                    Data.instance.contador++;
-                }
-                else
-                {
-                    if (id < Data.instance.contador)
+                    if (j2.Id == id)
                     {
-                        j1 = Data.instance.Jugadores.ElementAt(id - Data.instance.contador2);
-                        Data.instance.contador2++;
-                        Data.instance.contador++;
+                        Data.instance.Jugadores.Remove(j2);
+                        
+                        break;
                     }
-                    else
-                    {
-                        j1 = Data.instance.Jugadores.ElementAt(id - Data.instance.contador);
-                        Data.instance.contador++;
                     }
-                }
-              
-                Data.instance.Ultimonumero = id;
-                Data.instance.Jugadores.Remove(j1);
                 return RedirectToAction("Index");
             }
             catch
