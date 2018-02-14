@@ -229,5 +229,58 @@ namespace Lab1MLS.Controllers
                 return View();
             }
         }
+        // POST: Jugador/Create
+        [HttpPost]
+        public ActionResult EliminarPorArchivo(HttpPostedFileBase postedFile)
+        {
+            try
+            {
+
+                string filePath = string.Empty;
+                if (postedFile != null)
+                {
+                    string path = Server.MapPath("~/Uploads/");
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    filePath = path + Path.GetFileName(postedFile.FileName);
+                    string extension = Path.GetExtension(postedFile.FileName);
+                    postedFile.SaveAs(filePath);
+
+                    int contLinea = 0;
+                    string csvData = System.IO.File.ReadAllText(filePath);
+                    foreach (string row in csvData.Split('\n'))
+                    {
+                        if (contLinea != 0)
+                        {
+                            if (!string.IsNullOrEmpty(row))
+                            {
+                                Data.instance.JugadoresEliminados.AddLast(new Jugador
+                                {
+                                    Id = Data.instance.Jugadores.Count + 1,
+                                    Club = row.Split(',')[0],
+                                    LastName = row.Split(',')[1],
+                                    Name = row.Split(',')[2],
+                                    Position = row.Split(',')[3],
+                                    SalarioBase = row.Split(',')[4],
+                                    SalarioTotal = row.Split(',')[5]
+                                });
+                            }
+                        }
+                        contLinea++;
+                    }
+                }
+                foreach (var j1 in Data.instance.JugadoresEliminados)
+                {
+                    Data.instance.Jugadores.Remove(j1);
+                }
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
     }
 }

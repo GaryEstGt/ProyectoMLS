@@ -25,6 +25,7 @@ namespace Lab1MLS
         }
         public LinkedList<Jugador> Jugadores = new LinkedList<Jugador>();
         ListaDoblementeEnlazada<Jugador> JugadoresLA = new ListaDoblementeEnlazada<Jugador>();
+        public LinkedList<Jugador> JugadoresEliminados = new LinkedList<Jugador>();
         public int contador = 1;
         public int contador2 = 1;
         public int Ultimonumero = 0;
