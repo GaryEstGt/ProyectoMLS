@@ -1,17 +1,29 @@
 ﻿@model IEnumerable<Lab1MLS.Models.Jugador>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Busqueda";
 }
 
-<h2>Index</h2>
+<h2>Busqueda</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
-    @Html.ActionLink("Crear Por Archivo","CrearPorArchivo")
-    @Html.ActionLink("Eliminar Por Archivo","EliminarPorArchivo")
-    @Html.ActionLink("Busqueda", "Busqueda")
+    @using (Html.BeginForm("Busqueda", "Jugador", FormMethod.Post))
+    {
+        @Html.RadioButton("Nombre/Apellido","opcion1")
+        @Html.RadioButton("Posicion", "opcion2")
+        @Html.RadioButton("Salario", "opcion3")
+        @Html.RadioButton("Club", "opcion4")
+    }
 </p>
+@using (Html.BeginForm())
+{
+    @Html.TextBox("filter")
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Filtrar" class="btn btn-default"/>
+        </div>
+    </div>
+}
 <table class="table">
     <tr>
         <th>
@@ -56,9 +68,7 @@
             @Html.DisplayFor(modelItem => item.Club)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+           
         </td>
     </tr>
 }

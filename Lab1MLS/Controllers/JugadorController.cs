@@ -273,6 +273,7 @@ namespace Lab1MLS.Controllers
             }
             
         }
+       
 
         // POST: Jugador/Delete/5
         [HttpPost]
@@ -302,6 +303,99 @@ namespace Lab1MLS.Controllers
                     return RedirectToAction("Index");
                 }
                 
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        public ActionResult EliminarPorArchivo()
+        {
+            return View();
+        }
+        // POST: Jugador/Create
+        [HttpPost]
+        public ActionResult EliminarPorArchivo(HttpPostedFileBase postedFile)
+        {
+            try
+            {
+                  LinkedList<Jugador> JugadoresEliminados = new LinkedList<Jugador>();
+        string filePath = string.Empty;
+                if (postedFile != null)
+                {
+                    string path = Server.MapPath("~/Uploads/");
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    filePath = path + Path.GetFileName(postedFile.FileName);
+                    string extension = Path.GetExtension(postedFile.FileName);
+                    postedFile.SaveAs(filePath);
+
+                    int contLinea = 0;
+                    string csvData = System.IO.File.ReadAllText(filePath);
+                    foreach (string row in csvData.Split('\n'))
+                    {
+                        if (contLinea != 0)
+                        {
+                            if (!string.IsNullOrEmpty(row))
+                            {
+                                JugadoresEliminados.AddLast(new Jugador
+                                {
+                                    Id = Data.instance.Jugadores.Count + 1,
+                                    Club = row.Split(',')[0],
+                                    LastName = row.Split(',')[1],
+                                    Name = row.Split(',')[2],
+                                    Position = row.Split(',')[3],
+                                    SalarioBase = row.Split(',')[4],
+                                    SalarioTotal = row.Split(',')[5]
+                                });
+                            }
+                        }
+                        contLinea++;
+                    }
+                }
+                foreach (var j1 in JugadoresEliminados)
+                {
+                    foreach (var j2 in Data.instance.Jugadores)
+                    {
+                        if(j1.Name.Equals(j2.Name) && j1.LastName.Equals(j2.LastName))
+                        { 
+                            Data.instance.Jugadores.Remove(j2);
+                            break;
+                        }
+                    }
+                }
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        public ActionResult Busqueda()
+        {
+            return View(Data.instance.Jugadores);
+        }
+
+        // POST: Jugador/ElegirLista
+        [HttpPost]
+        public ActionResult Busqueda(string submitButton, string submitButton2,FormCollection collection)
+        {
+            try
+            {
+                var filterValue = collection["filter"];
+                switch (submitButton)
+                {
+                    case "Nombre/Apellido":
+                        Data.instance.Jugadores.Where(x => x.Name == filterValue);
+                        Data.instance.Jugadores.Where(x => x.LastName == filterValue);
+                        break;
+                    case "Lista Propia":
+                        Data.instance.tipoDeLista = 1;
+                        break;
+                }
+                return RedirectToAction("");
             }
             catch
             {
