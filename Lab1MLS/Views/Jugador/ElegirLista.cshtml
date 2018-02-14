@@ -1,0 +1,10 @@
+﻿@model IEnumerable<Lab1MLS.Models.Jugador>
+
+<h2>Elegir Lista</h2>
+
+@using (Html.BeginForm("ElegirLista", "Jugador", FormMethod.Post))
+{
+    <input type="submit" name="submitButton" value="Lista Genérica" />
+    <input type="submit" name="submitButton" value="Lista Propia"/>
+}
+

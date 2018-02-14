@@ -11,7 +11,34 @@ namespace Lab1MLS.Controllers
 {
     public class JugadorController : Controller
     {
-   
+        // GET: Jugador
+        public ActionResult ElegirLista()
+        {
+            return View();
+        }
+
+        // POST: Jugador/ElegirLista
+        [HttpPost]
+        public ActionResult ElegirLista(string submitButton)
+        {
+            try
+            {
+                switch (submitButton)
+                {
+                    case "Lista Genérica":
+                        Data.instance.tipoDeLista = 0;
+                        break;
+                    case "Lista Propia":
+                        Data.instance.tipoDeLista = 1;
+                        break;                    
+                }
+                return RedirectToAction("Index");        
+            }
+            catch
+            {
+                return View();
+            }
+        }
 
         // GET: Jugador
         public ActionResult Index()

@@ -28,5 +28,9 @@ namespace Lab1MLS
         public int contador = 1;
         public int contador2 = 1;
         public int Ultimonumero = 0;
+
+        //0 = Lista Generica (C#)
+        //1 = Lista Propia 
+        public int tipoDeLista = 0;
     }
 }

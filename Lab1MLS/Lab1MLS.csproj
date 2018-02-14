@@ -277,6 +277,7 @@
     <Content Include="Views\Jugador\Edit.cshtml" />
     <Content Include="Views\Jugador\Delete.cshtml" />
     <Content Include="Views\Jugador\Details.cshtml" />
+    <Content Include="Views\Jugador\ElegirLista.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
