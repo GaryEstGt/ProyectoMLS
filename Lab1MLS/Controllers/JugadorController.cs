@@ -261,7 +261,7 @@ namespace Lab1MLS.Controllers
                         {
                             if (!string.IsNullOrEmpty(row))
                             {
-                                Data.instance.JugadoresEliminados.AddLast(new Jugador
+                                JugadoresEliminados.AddLast(new Jugador
                                 {
                                     Id = Data.instance.Jugadores.Count + 1,
                                     Club = row.Split(',')[0],
@@ -276,8 +276,17 @@ namespace Lab1MLS.Controllers
                         contLinea++;
                     }
                 }
-                foreach (var j1 in Data.instance.JugadoresEliminados)
+                Jugador j3 = null;
+                foreach (var j1 in JugadoresEliminados)
                 {
+                    foreach (var j2 in Data.instance.Jugadores)
+                    {
+                        if(j1.Name.Equals(j2.Name) && j1.LastName.Equals(j2.LastName))
+                        {
+                            j3 = j1;
+                            Data.instance.Jugadores.Remove(j3);
+                        }
+                    }
                     Data.instance.Jugadores.Remove(j1);
                 }
                 return RedirectToAction("Index");
