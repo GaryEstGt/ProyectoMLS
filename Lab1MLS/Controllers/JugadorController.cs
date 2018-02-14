@@ -42,23 +42,39 @@ namespace Lab1MLS.Controllers
 
         // GET: Jugador
         public ActionResult Index()
-        {            
-            return View(Data.instance.Jugadores);
+        {
+            if (Data.instance.tipoDeLista == 0)
+            {
+                return View(Data.instance.Jugadores);
+            }
+            else
+            {
+                return View(Data.instance.JugadoresLA.GenerarLista());
+            }                     
         }
 
         // GET: Jugador/Details/5
         public ActionResult Details(int id)
         {
-            Jugador j2=null;
-            foreach (var j1 in Data.instance.Jugadores)
+            if (Data.instance.tipoDeLista == 0)
             {
-                if (j1.Id==id)
+                Jugador j2 = null;
+                foreach (var j1 in Data.instance.Jugadores)
                 {
-                    j2 = j1;
-                    break;
+                    if (j1.Id == id)
+                    {
+                        j2 = j1;
+                        break;
+                    }
                 }
+                return View(j2);
             }
-            return View(j2);
+            else
+            {
+                Jugador j2 = Data.instance.JugadoresLA.findWhere(Jugador => Jugador.Id == id);
+                return View(j2);
+            }
+
         }
 
         // GET: Jugador/Create
@@ -73,17 +89,35 @@ namespace Lab1MLS.Controllers
         {
             try
             {
-                Data.instance.Jugadores.AddLast(new Jugador
+                if (Data.instance.tipoDeLista == 0)
                 {
-                    Id = Data.instance.Jugadores.Count + 1,
-                    Name = collection["Name"],
-                    LastName = collection["LastName"],
-                    Position = collection["Position"],
-                    SalarioBase = collection["SalarioBase"],
-                    SalarioTotal = collection["SalarioTotal"],
-                    Club = collection["Club"]
-                });
-                return RedirectToAction("Index");
+                    Data.instance.Jugadores.AddLast(new Jugador
+                    {
+                        Id = Data.instance.Jugadores.Count + 1,
+                        Name = collection["Name"],
+                        LastName = collection["LastName"],
+                        Position = collection["Position"],
+                        SalarioBase = collection["SalarioBase"],
+                        SalarioTotal = collection["SalarioTotal"],
+                        Club = collection["Club"]
+                    });
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    Data.instance.JugadoresLA.InsertarFinal(new Jugador
+                    {
+                        Id = Data.instance.Jugadores.Count + 1,
+                        Name = collection["Name"],
+                        LastName = collection["LastName"],
+                        Position = collection["Position"],
+                        SalarioBase = collection["SalarioBase"],
+                        SalarioTotal = collection["SalarioTotal"],
+                        Club = collection["Club"]
+                    });
+                    return RedirectToAction("Index");
+                }
+                
             }
             catch
             {
@@ -121,19 +155,38 @@ namespace Lab1MLS.Controllers
                     {
                         if (contLinea!= 0)
                         {
-                            if (!string.IsNullOrEmpty(row))
+                            if (Data.instance.tipoDeLista == 0)
                             {
-                                Data.instance.Jugadores.AddLast(new Jugador
+                                if (!string.IsNullOrEmpty(row))
                                 {
-                                    Id = Data.instance.Jugadores.Count + 1,
-                                    Club = row.Split(',')[0],
-                                    LastName = row.Split(',')[1],
-                                    Name = row.Split(',')[2],
-                                    Position = row.Split(',')[3],
-                                    SalarioBase = row.Split(',')[4],
-                                    SalarioTotal = row.Split(',')[5]
-                                });
+                                    Data.instance.Jugadores.AddLast(new Jugador
+                                    {
+                                        Id = Data.instance.Jugadores.Count + 1,
+                                        Club = row.Split(',')[0],
+                                        LastName = row.Split(',')[1],
+                                        Name = row.Split(',')[2],
+                                        Position = row.Split(',')[3],
+                                        SalarioBase = row.Split(',')[4],
+                                        SalarioTotal = row.Split(',')[5]
+                                    });
+                                }
                             }
+                            else
+                            {
+                                if (!string.IsNullOrEmpty(row))
+                                {
+                                    Data.instance.JugadoresLA.InsertarFinal(new Jugador
+                                    {
+                                        Id = Data.instance.JugadoresLA.GetCantidad() + 1,
+                                        Club = row.Split(',')[0],
+                                        LastName = row.Split(',')[1],
+                                        Name = row.Split(',')[2],
+                                        Position = row.Split(',')[3],
+                                        SalarioBase = row.Split(',')[4],
+                                        SalarioTotal = row.Split(',')[5]
+                                    });
+                                }
+                            }                            
                         }
                         contLinea++;
                     }
@@ -161,6 +214,7 @@ namespace Lab1MLS.Controllers
                 // TODO: Add update logic here
                 Jugador j1 = new Jugador
                 {
+                    Id = id,
                     Name = collection["Name"],
                     LastName = collection["LastName"],
                     Position = collection["Position"],
@@ -168,19 +222,25 @@ namespace Lab1MLS.Controllers
                     SalarioTotal = collection["SalarioTotal"],
                     Club = collection["Club"]
                 };
-                foreach (var j2 in Data.instance.Jugadores)
+
+                if (Data.instance.tipoDeLista == 0)
                 {
-                    if (j2.Id == id)
+                    foreach (var j2 in Data.instance.Jugadores)
                     {
-                       LinkedListNode<Jugador> j3= Data.instance.Jugadores.Find(j2);
-                        Data.instance.Jugadores.AddBefore(j3, j1);
-                        Data.instance.Jugadores.Remove(j2);
-                        break;
+                        if (j2.Id == id)
+                        {
+                            LinkedListNode<Jugador> j3 = Data.instance.Jugadores.Find(j2);
+                            Data.instance.Jugadores.AddBefore(j3, j1);
+                            Data.instance.Jugadores.Remove(j2);
+                            break;
+                        }
                     }
                 }
+                else
                 {
-
-                }
+                    Jugador j2 = Data.instance.JugadoresLA.findWhere(Jugador => Jugador.Id == id);
+                    Data.instance.JugadoresLA.EditarEspecifico(j1, j2);
+                }                               
                 
                 return RedirectToAction("Index");
             }
@@ -193,16 +253,25 @@ namespace Lab1MLS.Controllers
         // GET: Jugador/Delete/5
         public ActionResult Delete(int id)
         {
-            Jugador j2 = null;
-            foreach (var j1 in Data.instance.Jugadores)
+            if (Data.instance.tipoDeLista == 0)
             {
-                if (j1.Id == id)
+                Jugador j2 = null;
+                foreach (var j1 in Data.instance.Jugadores)
                 {
-                    j2 = j1;
-                    break;
+                    if (j1.Id == id)
+                    {
+                        j2 = j1;
+                        break;
+                    }
                 }
+                return View(j2);
             }
-            return View(j2);
+            else
+            {
+                Jugador j2 = Data.instance.JugadoresLA.findWhere(Jugador => Jugador.Id == id);
+                return View(j2);
+            }
+            
         }
 
         // POST: Jugador/Delete/5
@@ -212,17 +281,27 @@ namespace Lab1MLS.Controllers
             try
             {
                 // TODO: Add delete logic here
-                
-                foreach (var j2 in Data.instance.Jugadores)
+                if (Data.instance.tipoDeLista == 0)
                 {
-                    if (j2.Id == id)
+                    foreach (var j2 in Data.instance.Jugadores)
                     {
-                        Data.instance.Jugadores.Remove(j2);
-                        
-                        break;
+                        if (j2.Id == id)
+                        {
+                            Data.instance.Jugadores.Remove(j2);
+
+                            break;
+                        }
                     }
-                    }
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    Jugador j2 = Data.instance.JugadoresLA.findWhere(Jugador => Jugador.Id == id);
+                    Data.instance.JugadoresLA.Eliminar_especifico(j2);
+
+                    return RedirectToAction("Index");
+                }
+                
             }
             catch
             {

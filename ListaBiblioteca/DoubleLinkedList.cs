@@ -48,6 +48,39 @@ namespace ListaBiblioteca
         //    }
         //}
 
+        public int GetCantidad()
+        {
+            Nodo<T> aux = Inicio;
+            int cantidad = 0;
+
+            while (aux != null)
+            {
+                cantidad++;
+                aux = aux.siguiente;
+            }
+
+            return cantidad;
+        }
+        public List<T> GenerarLista()
+        {
+            if (Inicio != null)
+            {
+                List<T> lista = new List<T>();
+
+                Nodo<T> aux = Inicio;
+
+                while (aux != null)
+                {
+                    lista.Add(aux.info);
+                    aux = aux.siguiente;
+                }
+
+                return lista;
+            }
+
+            return new List<T>();
+            
+        }
         public void InsertarFinal(T datos)
         {
             Nodo<T> nuevo = new Nodo<T>(datos);            
@@ -139,6 +172,26 @@ namespace ListaBiblioteca
             return existe;
         }
 
+        //public T Buscar(int ID)
+        //{
+        //    Nodo<T> aux = Inicio;
+        //    while (aux != Fin)
+        //    {
+        //        if (aux.info.Equals(valor))
+        //        {
+        //            existe = true;
+        //            break;
+        //        }
+        //        else
+        //        {
+        //            aux = aux.siguiente;
+        //        }
+
+        //    }
+
+        //    return existe;
+        //}
+
         //public void EliminarInicio()
         //{
         //    Nodo<T> temp = Inicio;
@@ -159,6 +212,26 @@ namespace ListaBiblioteca
         //    Fin = aux;        
         //}
 
+        public void EditarEspecifico(T valor, T buscar)
+        {
+            Nodo<T> aux = Inicio;
+            if (aux.info.Equals(buscar))
+            {
+                Inicio.info = valor;                
+            }
+            else
+            {
+                if (ExisteValor(buscar))
+                {
+                    while (!aux.siguiente.info.Equals(buscar))
+                    {
+                        aux = aux.siguiente;
+                    }
+
+                    aux.siguiente.info = valor;                    
+                }
+            }
+        }
         public void Eliminar_especifico(T valor)
         {
             Nodo<T> aux = Inicio;
@@ -183,6 +256,23 @@ namespace ListaBiblioteca
             }
         }
 
+        public T findWhere(Func<T, bool> delegado)
+        {            
+            Nodo<T> aux = Inicio;
+
+            while (aux != null)
+            {
+                if (delegado.Invoke(aux.info))
+                {
+                    break;
+                }
+
+                aux = aux.siguiente;
+            }
+
+            return aux.info;
+        }
+
         public List<T> where(Func<T, bool> delegado)
         {
             var filtered = new List<T>();
@@ -192,9 +282,10 @@ namespace ListaBiblioteca
             {
                 if (delegado.Invoke(aux.info))
                 {
-                    filtered.Add(aux.info);
-                    aux = aux.siguiente;
+                    filtered.Add(aux.info);                    
                 }
+
+                aux = aux.siguiente;
             }
 
             return filtered;
