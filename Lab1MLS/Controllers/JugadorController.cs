@@ -296,7 +296,7 @@ namespace Lab1MLS.Controllers
         }
         public ActionResult Busqueda()
         {
-            return View();
+            return View(Data.instance.Jugadores);
         }
 
         // POST: Jugador/ElegirLista
@@ -305,10 +305,12 @@ namespace Lab1MLS.Controllers
         {
             try
             {
+                var filterValue = collection["filter"];
                 switch (submitButton)
                 {
-                    case "Lista Genérica":
-                        Data.instance.tipoDeLista = 0;
+                    case "Nombre/Apellido":
+                        Data.instance.Jugadores.Where(x => x.Name == filterValue);
+                        Data.instance.Jugadores.Where(x => x.LastName == filterValue);
                         break;
                     case "Lista Propia":
                         Data.instance.tipoDeLista = 1;
