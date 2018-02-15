@@ -375,27 +375,55 @@ namespace Lab1MLS.Controllers
         }
         public ActionResult Busqueda()
         {
-            return View(Data.instance.Jugadores);
+            if (Data.instance.contadorbuscar == 0)
+            {
+                return View(Data.instance.Jugadores);
+            }
+            else
+            {
+                return View(Data.instance.retornar);
+            }
+            
         }
 
         // POST: Jugador/ElegirLista
         [HttpPost]
-        public ActionResult Busqueda(string submitButton, string submitButton2,FormCollection collection)
+        public ActionResult Busqueda(string tipobuscar,FormCollection collection)
         {
             try
             {
+       
                 var filterValue = collection["filter"];
-                switch (submitButton)
+                switch (tipobuscar)
                 {
-                    case "Nombre/Apellido":
-                        Data.instance.Jugadores.Where(x => x.Name == filterValue);
-                        Data.instance.Jugadores.Where(x => x.LastName == filterValue);
+                    case "Nombre":
+                       Data.instance.retornar= Data.instance.Jugadores.Where(x => x.Name == filterValue);
+                        Data.instance.contadorbuscar++;
                         break;
-                    case "Lista Propia":
-                        Data.instance.tipoDeLista = 1;
+                    case "Apellido":
+                        Data.instance.retornar = Data.instance.Jugadores.Where(x => x.LastName == filterValue);
+                        Data.instance.contadorbuscar++;
+                        break;
+                    case "Posicion":
+                        Data.instance.retornar = Data.instance.Jugadores.Where(x => x.Position == filterValue);
+                        Data.instance.contadorbuscar++;
+                        break;
+                    case "Salario":
+                        Data.instance.retornar = Data.instance.Jugadores.Where(x => x.SalarioBase == filterValue);
+                        Data.instance.contadorbuscar++;
+                        break;
+                    case "Club":
+                        Data.instance.retornar = Data.instance.Jugadores.Where(x => x.Club == filterValue);
+                        Data.instance.contadorbuscar++;
+                        break;
+                    case "Buscar De nuevo":
+                        Data.instance.contadorbuscar = 0;
+                        break;
+                    default:
+                        Data.instance.contadorbuscar = 0;
                         break;
                 }
-                return RedirectToAction("");
+                return RedirectToAction("Busqueda");
             }
             catch
             {

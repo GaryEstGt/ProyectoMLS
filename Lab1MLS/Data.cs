@@ -28,6 +28,8 @@ namespace Lab1MLS
         public int contador = 1;
         public int contador2 = 1;
         public int Ultimonumero = 0;
+        public int contadorbuscar=0;
+        public IEnumerable<Jugador> retornar = new LinkedList<Jugador>();
 
         //0 = Lista Generica (C#)
         //1 = Lista Propia 

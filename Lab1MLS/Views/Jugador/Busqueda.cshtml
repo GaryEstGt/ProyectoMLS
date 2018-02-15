@@ -5,25 +5,23 @@
 }
 
 <h2>Busqueda</h2>
-
-<p>
-    @using (Html.BeginForm("Busqueda", "Jugador", FormMethod.Post))
-    {
-        @Html.RadioButton("Nombre/Apellido","opcion1")
-        @Html.RadioButton("Posicion", "opcion2")
-        @Html.RadioButton("Salario", "opcion3")
-        @Html.RadioButton("Club", "opcion4")
-    }
-</p>
-@using (Html.BeginForm())
+@using (Html.BeginForm("Busqueda", "Jugador", FormMethod.Post))
 {
     @Html.TextBox("filter")
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Filtrar" class="btn btn-default"/>
-        </div>
-    </div>
+    
+        <input type="submit" name="tipobuscar" value="Nombre" />
+        <input type="submit" name="tipobuscar" value="Apellido" />
+        <input type="submit" name="tipobuscar" value="Posicion" />
+        <input type="submit" name="tipobuscar" value="Salario" />
+        <input type="submit" name="tipobuscar" value="Club" />
+        <input type="submit" name="tipobuscar" value="Buscar De nuevo" />
 }
+<p>
+   
+      
+    
+</p>
+
 <table class="table">
     <tr>
         <th>
