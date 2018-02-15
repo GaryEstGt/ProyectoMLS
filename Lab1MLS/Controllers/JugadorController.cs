@@ -13,23 +13,21 @@ namespace Lab1MLS.Controllers
     {
         public ActionResult GenerarArchivo()
         {
-            return View();
-        }
-
-        public FileContentResult DescargarExportableTXT()
-        {
-            StringWriter sw = new StringWriter();
-            using (sw)
+            try
             {
-                sw.WriteLine(Data.instance.Log);
+                System.IO.StreamWriter z_varocioStreamWriter = new System.IO.StreamWriter(@"C:\Log.txt");
+                z_varocioStreamWriter.Write(Data.instance.Log);
+                z_varocioStreamWriter.Close();
+
+                return RedirectToAction("Index");
             }
-
-            String contenido = sw.ToString();
-            String NombreArchivo = "Log";
-            String Extension = "txt";
-
-            return File(new System.Text.UTF8Encoding().GetBytes(contenido), "text/" + Extension, NombreArchivo + "." + Extension);
+            catch (Exception)
+            {
+                return RedirectToAction("Index");
+            }
+            
         }
+        
         // GET: Jugador
         public ActionResult ElegirLista()
         {

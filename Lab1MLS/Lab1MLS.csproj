@@ -281,7 +281,6 @@
     <Content Include="Views\Jugador\ElegirLista.cshtml" />
     <Content Include="Views\Jugador\EliminarPorArchivo.cshtml" />
     <Content Include="Views\Jugador\Busqueda.cshtml" />
-    <Content Include="Views\Jugador\GenerarArchivo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
