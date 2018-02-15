@@ -1,0 +1,29 @@
+﻿@model Lab1MLS.Models.Jugador
+
+@{
+    ViewBag.Title = "CrearPorArchivo";
+}
+
+<h2>CrearPorArchivo</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    
+}
+@using (Html.BeginForm("CrearPorArchivo", "Jugador", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="postedFile" />
+    <input type="submit" value="Importar" />
+}
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
