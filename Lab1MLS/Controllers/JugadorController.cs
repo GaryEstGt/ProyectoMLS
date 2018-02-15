@@ -412,7 +412,15 @@ namespace Lab1MLS.Controllers
         {
             if (Data.instance.contadorbuscar == 0)
             {
-                return View(Data.instance.Jugadores);
+                if (Data.instance.tipoDeLista == 0)
+                {
+                    return View(Data.instance.Jugadores);
+                }
+                else
+                {
+                    return View(Data.instance.JugadoresLA.GenerarLista());
+                }
+              
             }
             else
             {
@@ -427,37 +435,73 @@ namespace Lab1MLS.Controllers
         {
             try
             {
-       
-                var filterValue = collection["filter"];
-                switch (tipobuscar)
+                if (Data.instance.tipoDeLista == 0)
                 {
-                    case "Nombre":
-                       Data.instance.retornar= Data.instance.Jugadores.Where(x => x.Name == filterValue);
-                        Data.instance.contadorbuscar++;
-                        break;
-                    case "Apellido":
-                        Data.instance.retornar = Data.instance.Jugadores.Where(x => x.LastName == filterValue);
-                        Data.instance.contadorbuscar++;
-                        break;
-                    case "Posicion":
-                        Data.instance.retornar = Data.instance.Jugadores.Where(x => x.Position == filterValue);
-                        Data.instance.contadorbuscar++;
-                        break;
-                    case "Salario":
-                        Data.instance.retornar = Data.instance.Jugadores.Where(x => x.SalarioBase == filterValue);
-                        Data.instance.contadorbuscar++;
-                        break;
-                    case "Club":
-                        Data.instance.retornar = Data.instance.Jugadores.Where(x => x.Club == filterValue);
-                        Data.instance.contadorbuscar++;
-                        break;
-                    case "Buscar De nuevo":
-                        Data.instance.contadorbuscar = 0;
-                        break;
-                    default:
-                        Data.instance.contadorbuscar = 0;
-                        break;
+                    var filterValue = collection["filter"];
+                    switch (tipobuscar)
+                    {
+                        case "Nombre":
+                            Data.instance.retornar = Data.instance.Jugadores.Where(x => x.Name == filterValue);
+                            Data.instance.contadorbuscar++;
+                            break;
+                        case "Apellido":
+                            Data.instance.retornar = Data.instance.Jugadores.Where(x => x.LastName == filterValue);
+                            Data.instance.contadorbuscar++;
+                            break;
+                        case "Posicion":
+                            Data.instance.retornar = Data.instance.Jugadores.Where(x => x.Position == filterValue);
+                            Data.instance.contadorbuscar++;
+                            break;
+                        case "Salario":
+                            Data.instance.retornar = Data.instance.Jugadores.Where(x => x.SalarioBase == filterValue);
+                            Data.instance.contadorbuscar++;
+                            break;
+                        case "Club":
+                            Data.instance.retornar = Data.instance.Jugadores.Where(x => x.Club == filterValue);
+                            Data.instance.contadorbuscar++;
+                            break;
+                        case "Buscar De nuevo":
+                            Data.instance.contadorbuscar = 0;
+                            break;
+                        default:
+                            Data.instance.contadorbuscar = 0;
+                            break;
+                    }
                 }
+                else
+                {
+                    var filterValue = collection["filter"];
+                    switch (tipobuscar)
+                    {
+                        case "Nombre":
+                            Data.instance.retornar = Data.instance.JugadoresLA.where(x => x.Name == filterValue);
+                            Data.instance.contadorbuscar++;
+                            break;
+                        case "Apellido":
+                            Data.instance.retornar = Data.instance.JugadoresLA.where(x => x.LastName == filterValue);
+                            Data.instance.contadorbuscar++;
+                            break;
+                        case "Posicion":
+                            Data.instance.retornar = Data.instance.JugadoresLA.where(x => x.Position == filterValue);
+                            Data.instance.contadorbuscar++;
+                            break;
+                        case "Salario":
+                            Data.instance.retornar = Data.instance.JugadoresLA.where(x => x.SalarioBase == filterValue);
+                            Data.instance.contadorbuscar++;
+                            break;
+                        case "Club":
+                            Data.instance.retornar = Data.instance.JugadoresLA.where(x => x.Club == filterValue);
+                            Data.instance.contadorbuscar++;
+                            break;
+                        case "Buscar De nuevo":
+                            Data.instance.contadorbuscar = 0;
+                            break;
+                        default:
+                            Data.instance.contadorbuscar = 0;
+                            break;
+                    }
+                }
+              
                 return RedirectToAction("Busqueda");
             }
             catch
