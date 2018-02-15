@@ -31,6 +31,8 @@ namespace Lab1MLS
         public int contadorbuscar=0;
         public IEnumerable<Jugador> retornar = new LinkedList<Jugador>();
 
+        public MedicionTiempos Tiempos = new MedicionTiempos();
+
         //0 = Lista Generica (C#)
         //1 = Lista Propia 
         public int tipoDeLista = 0;

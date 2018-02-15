@@ -24,11 +24,13 @@ namespace ListaBiblioteca
     {
         Nodo<T> Inicio;
         Nodo<T> Fin;
+        int tamaño;
 
         public ListaDoblementeEnlazada()
         {
             Inicio = null;
             Fin = null;
+            tamaño = 0;
         }
 
         //public void InsertarInicio(T datos)
@@ -49,17 +51,8 @@ namespace ListaBiblioteca
         //}
 
         public int GetCantidad()
-        {
-            Nodo<T> aux = Inicio;
-            int cantidad = 0;
-
-            while (aux != null)
-            {
-                cantidad++;
-                aux = aux.siguiente;
-            }
-
-            return cantidad;
+        {            
+            return tamaño;
         }
         public List<T> GenerarLista()
         {
@@ -83,7 +76,9 @@ namespace ListaBiblioteca
         }
         public void InsertarFinal(T datos)
         {
-            Nodo<T> nuevo = new Nodo<T>(datos);            
+            Nodo<T> nuevo = new Nodo<T>(datos);
+
+            tamaño++;
 
             if (Inicio == null)
             {
