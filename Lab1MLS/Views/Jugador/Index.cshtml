@@ -10,7 +10,12 @@
     @Html.ActionLink("Create New", "Create")
     @Html.ActionLink("Crear Por Archivo","CrearPorArchivo")
     @Html.ActionLink("Eliminar Por Archivo","EliminarPorArchivo")
-    @Html.ActionLink("Busqueda", "Busqueda")
+    @Html.ActionLink("Busqueda", "Busqueda")   
+
+    @using (Html.BeginForm("GenerarArchivo", "Jugador", FormMethod.Post))
+    {
+        <input type="submit" name="submitButton" value="Generar Archivo" />        
+    }
 </p>
 <table class="table">
     <tr>

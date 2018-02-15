@@ -11,6 +11,25 @@ namespace Lab1MLS.Controllers
 {
     public class JugadorController : Controller
     {
+        public ActionResult GenerarArchivo()
+        {
+            return View();
+        }
+
+        public FileContentResult DescargarExportableTXT()
+        {
+            StringWriter sw = new StringWriter();
+            using (sw)
+            {
+                sw.WriteLine(Data.instance.Log);
+            }
+
+            String contenido = sw.ToString();
+            String NombreArchivo = "Log";
+            String Extension = "txt";
+
+            return File(new System.Text.UTF8Encoding().GetBytes(contenido), "text/" + Extension, NombreArchivo + "." + Extension);
+        }
         // GET: Jugador
         public ActionResult ElegirLista()
         {

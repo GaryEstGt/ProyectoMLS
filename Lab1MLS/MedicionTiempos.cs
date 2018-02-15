@@ -18,7 +18,7 @@ namespace Lab1MLS
         }
         public void EscribirLinea(string linea)
         {
-            Data.instance.Log += linea + "\n";            
+            Data.instance.Log += linea + "/n";            
         }          
         
         public void EmpezarTiempo()
