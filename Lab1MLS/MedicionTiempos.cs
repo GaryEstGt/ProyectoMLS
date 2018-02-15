@@ -10,28 +10,16 @@ namespace Lab1MLS
 {
     public class MedicionTiempos
     {
-        Stopwatch stopWatch = new Stopwatch();
-        StreamWriter escritor;
+        Stopwatch stopWatch;        
 
         public MedicionTiempos()
-        {
-            string ruta = ("~/Log/");
-            if (!Directory.Exists(ruta))
-            {
-                Directory.CreateDirectory(ruta);
-            }
-
-            escritor = new StreamWriter(ruta + "Log.txt");
+        {            
+            stopWatch = new Stopwatch();
         }
         public void EscribirLinea(string linea)
-        {                        
-            escritor.WriteLine(linea);
-        }  
-
-        public void DetenerEscritor()
         {
-            escritor.Close();
-        }
+            Data.instance.Log += linea + "\n";            
+        }          
         
         public void EmpezarTiempo()
         {

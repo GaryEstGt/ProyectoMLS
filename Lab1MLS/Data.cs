@@ -32,6 +32,7 @@ namespace Lab1MLS
         public IEnumerable<Jugador> retornar = new LinkedList<Jugador>();
 
         public MedicionTiempos Tiempos = new MedicionTiempos();
+        public string Log = string.Empty;
 
         //0 = Lista Generica (C#)
         //1 = Lista Propia 

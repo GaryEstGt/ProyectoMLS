@@ -25,14 +25,14 @@ namespace Lab1MLS.Controllers
             {
                 switch (submitButton)
                 {
-                    case "Lista Genérica":                        
-                        Data.instance.tipoDeLista = 0;                        
+                    case "Lista Genérica":
+                        Data.instance.tipoDeLista = 0;
                         break;
                     case "Lista Propia":
                         Data.instance.tipoDeLista = 1;
-                        break;                    
+                        break;
                 }
-                return RedirectToAction("Index");        
+                return RedirectToAction("Index");
             }
             catch
             {
@@ -435,6 +435,7 @@ namespace Lab1MLS.Controllers
         {
             try
             {
+                Data.instance.Tiempos.EmpezarTiempo();
                 if (Data.instance.tipoDeLista == 0)
                 {
                     var filterValue = collection["filter"];
@@ -466,7 +467,7 @@ namespace Lab1MLS.Controllers
                         default:
                             Data.instance.contadorbuscar = 0;
                             break;
-                    }
+                    }                    
                 }
                 else
                 {
@@ -501,18 +502,14 @@ namespace Lab1MLS.Controllers
                             break;
                     }
                 }
-              
+
+                Data.instance.Tiempos.EscribirLinea("Busqueda de Jugadores: " + Data.instance.Tiempos.DetenerTiempo());
                 return RedirectToAction("Busqueda");
             }
             catch
             {
                 return View();
             }
-        }
-
-        public void IniciarTiempo()
-        {
-
-        }
+        }        
     }
 }
