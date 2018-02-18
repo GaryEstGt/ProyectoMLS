@@ -471,11 +471,11 @@ namespace Lab1MLS.Controllers
                             Data.instance.contadorbuscar++;
                             break;
                         case "Salario Mayor":
-                            Data.instance.retornar = Data.instance.Jugadores.Where(x => Convert.ToInt32(x.SalarioBase)>= Convert.ToInt32(filterValue));
+                            Data.instance.retornar = Data.instance.Jugadores.Where(x => Convert.ToDouble(x.SalarioBase)>= Convert.ToDouble(filterValue));
                             Data.instance.contadorbuscar++;
                             break;
                         case "Salario Menor":
-                            Data.instance.retornar = Data.instance.Jugadores.Where(x => Convert.ToInt32(x.SalarioBase) < Convert.ToInt32(filterValue));
+                            Data.instance.retornar = Data.instance.Jugadores.Where(x => Convert.ToDouble(x.SalarioBase) < Convert.ToDouble(filterValue));
                             Data.instance.contadorbuscar++;
                             break;
                         case "Club":
@@ -507,8 +507,12 @@ namespace Lab1MLS.Controllers
                             Data.instance.retornar = Data.instance.JugadoresLA.where(x => x.Position == filterValue);
                             Data.instance.contadorbuscar++;
                             break;
-                        case "Salario":
-                            Data.instance.retornar = Data.instance.JugadoresLA.where(x => x.SalarioBase == filterValue);
+                        case "Salario Mayor":
+                            Data.instance.retornar = Data.instance.Jugadores.Where(x => Convert.ToDouble(x.SalarioBase) >= Convert.ToDouble(filterValue));
+                            Data.instance.contadorbuscar++;
+                            break;
+                        case "Salario Menor":
+                            Data.instance.retornar = Data.instance.Jugadores.Where(x => Convert.ToDouble(x.SalarioBase) < Convert.ToDouble(filterValue));
                             Data.instance.contadorbuscar++;
                             break;
                         case "Club":
