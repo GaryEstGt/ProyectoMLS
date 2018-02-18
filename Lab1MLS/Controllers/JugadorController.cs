@@ -475,11 +475,15 @@ namespace Lab1MLS.Controllers
                             Data.instance.contadorbuscar++;
                             break;
                         case "Salario Mayor":
-                            Data.instance.retornar = Data.instance.Jugadores.Where(x => Convert.ToDouble(x.SalarioBase)>= Convert.ToDouble(filterValue));
+                            Data.instance.retornar = Data.instance.Jugadores.Where(x => Convert.ToDouble(x.SalarioBase) >= Convert.ToDouble(filterValue));
                             Data.instance.contadorbuscar++;
                             break;
                         case "Salario Menor":
                             Data.instance.retornar = Data.instance.Jugadores.Where(x => Convert.ToDouble(x.SalarioBase) < Convert.ToDouble(filterValue));
+                            Data.instance.contadorbuscar++;
+                            break;
+                        case "Salario Igual":
+                            Data.instance.retornar = Data.instance.Jugadores.Where(x => x.SalarioBase ==filterValue);
                             Data.instance.contadorbuscar++;
                             break;
                         case "Club":
@@ -512,11 +516,15 @@ namespace Lab1MLS.Controllers
                             Data.instance.contadorbuscar++;
                             break;
                         case "Salario Mayor":
-                            Data.instance.retornar = Data.instance.Jugadores.Where(x => Convert.ToDouble(x.SalarioBase) >= Convert.ToDouble(filterValue));
+                            Data.instance.retornar = Data.instance.JugadoresLA.where(x => Convert.ToDouble(x.SalarioBase) > Convert.ToDouble(filterValue));
                             Data.instance.contadorbuscar++;
                             break;
                         case "Salario Menor":
-                            Data.instance.retornar = Data.instance.Jugadores.Where(x => Convert.ToDouble(x.SalarioBase) < Convert.ToDouble(filterValue));
+                            Data.instance.retornar = Data.instance.JugadoresLA.where(x => Convert.ToDouble(x.SalarioBase) < Convert.ToDouble(filterValue));
+                            Data.instance.contadorbuscar++;
+                            break;
+                        case "Salario Igual":
+                            Data.instance.retornar = Data.instance.JugadoresLA.where(x => x.SalarioBase == filterValue);
                             Data.instance.contadorbuscar++;
                             break;
                         case "Club":
