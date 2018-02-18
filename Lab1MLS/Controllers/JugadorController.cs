@@ -243,10 +243,6 @@ namespace Lab1MLS.Controllers
                 Jugador j1 = new Jugador
                 {
                     Id = id,
-                    Name = collection["Name"],
-                    LastName = collection["LastName"],
-                    Position = collection["Position"],
-                    SalarioBase = collection["SalarioBase"],
                     SalarioTotal = collection["SalarioTotal"],
                     Club = collection["Club"]
                 };
@@ -258,6 +254,10 @@ namespace Lab1MLS.Controllers
                         if (j2.Id == id)
                         {
                             LinkedListNode<Jugador> j3 = Data.instance.Jugadores.Find(j2);
+                            j1.Name = j2.Name;
+                            j1.LastName = j2.LastName;
+                            j1.Position = j2.Position;
+                            j1.SalarioBase = j2.SalarioBase;
                             Data.instance.Jugadores.AddBefore(j3, j1);
                             Data.instance.Jugadores.Remove(j2);
                             break;
@@ -267,6 +267,10 @@ namespace Lab1MLS.Controllers
                 else
                 {
                     Jugador j2 = Data.instance.JugadoresLA.findWhere(Jugador => Jugador.Id == id);
+                    j1.Name = j2.Name;
+                    j1.LastName = j2.LastName;
+                    j1.Position = j2.Position;
+                    j1.SalarioBase = j2.SalarioBase;
                     Data.instance.JugadoresLA.EditarEspecifico(j1, j2);
                 }
                 Data.instance.Tiempos.EscribirLinea("Editar Jugador: " + Data.instance.Tiempos.DetenerTiempo());
