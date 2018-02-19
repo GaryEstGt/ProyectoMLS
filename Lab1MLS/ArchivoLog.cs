@@ -16,8 +16,7 @@ namespace Lab1MLS
         public static void EscribirLinea(string Log)
         {            
             StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath(path: @"~\Log\" + filename));
-            w.WriteLine(Log);
-            w.WriteLine("");
+            w.WriteLine(Log);            
             w.Close();
         }
     }
