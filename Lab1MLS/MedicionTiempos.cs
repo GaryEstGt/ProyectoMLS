@@ -16,10 +16,10 @@ namespace Lab1MLS
         {            
             stopWatch = new Stopwatch();
         }
-        public void EscribirLinea(string linea)
-        {
-            Data.instance.Log += linea + "/n";            
-        }          
+        //public void EscribirLinea(string linea)
+        //{
+        //    Data.instance.Log += linea + "\n";            
+        //}          
         
         public void EmpezarTiempo()
         {

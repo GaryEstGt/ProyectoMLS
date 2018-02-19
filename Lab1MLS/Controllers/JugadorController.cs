@@ -10,24 +10,7 @@ using System.Web.Mvc;
 namespace Lab1MLS.Controllers
 {
     public class JugadorController : Controller
-    {
-        public ActionResult GenerarArchivo()
-        {
-            try
-            {
-                System.IO.StreamWriter z_varocioStreamWriter = new System.IO.StreamWriter(@"C:\Log.txt");
-                z_varocioStreamWriter.Write(Data.instance.Log);
-                z_varocioStreamWriter.Close();
-
-                return RedirectToAction("Index");
-            }
-            catch (Exception)
-            {
-                return RedirectToAction("Index");
-            }
-            
-        }
-        
+    {                
         // GET: Jugador
         public ActionResult ElegirLista()
         {
@@ -40,6 +23,7 @@ namespace Lab1MLS.Controllers
         {
             try
             {
+                ArchivoLog.EmpezarLog();
                 switch (submitButton)
                 {
                     case "Lista Genérica":
@@ -85,7 +69,8 @@ namespace Lab1MLS.Controllers
                         break;
                     }
                 }
-                Data.instance.Tiempos.EscribirLinea("Detalles de " + j2.Name + ": " + Data.instance.Tiempos.DetenerTiempo());
+
+                ArchivoLog.EscribirLinea("Detalles de " + j2.Name + ": " + Data.instance.Tiempos.DetenerTiempo());
                 
                 return View(j2);
             }
@@ -93,7 +78,7 @@ namespace Lab1MLS.Controllers
             {
                 Data.instance.Tiempos.EmpezarTiempo();
                 Jugador j2 = Data.instance.JugadoresLA.findWhere(Jugador => Jugador.Id == id);
-                Data.instance.Tiempos.EscribirLinea("Detalles de " + j2.Name + ": " + Data.instance.Tiempos.DetenerTiempo());
+                ArchivoLog.EscribirLinea("Detalles de " + j2.Name + ": " + Data.instance.Tiempos.DetenerTiempo());
                 return View(j2);
             }
 
@@ -124,7 +109,7 @@ namespace Lab1MLS.Controllers
                         SalarioTotal = collection["SalarioTotal"],
                         Club = collection["Club"]
                     });
-                    Data.instance.Tiempos.EscribirLinea("Crear nuevo jugador: " + Data.instance.Tiempos.DetenerTiempo());
+                    ArchivoLog.EscribirLinea("Crear nuevo jugador: " + Data.instance.Tiempos.DetenerTiempo());
                     return RedirectToAction("Index");
                 }
                 else
@@ -140,7 +125,7 @@ namespace Lab1MLS.Controllers
                         SalarioTotal = collection["SalarioTotal"],
                         Club = collection["Club"]
                     });
-                    Data.instance.Tiempos.EscribirLinea("Crear nuevo jugador: " + Data.instance.Tiempos.DetenerTiempo());
+                    ArchivoLog.EscribirLinea("Crear nuevo jugador: " + Data.instance.Tiempos.DetenerTiempo());
                     return RedirectToAction("Index");
                 }
                 
@@ -217,7 +202,7 @@ namespace Lab1MLS.Controllers
                         contLinea++;
                     }
                 }
-                Data.instance.Tiempos.EscribirLinea("Crear por archivo: " + Data.instance.Tiempos.DetenerTiempo());
+                ArchivoLog.EscribirLinea("Crear por archivo: " + Data.instance.Tiempos.DetenerTiempo());
                 return RedirectToAction("Index");
             }
             catch
@@ -273,7 +258,7 @@ namespace Lab1MLS.Controllers
                     j1.SalarioBase = j2.SalarioBase;
                     Data.instance.JugadoresLA.EditarEspecifico(j1, j2);
                 }
-                Data.instance.Tiempos.EscribirLinea("Editar Jugador: " + Data.instance.Tiempos.DetenerTiempo());
+                ArchivoLog.EscribirLinea("Editar Jugador: " + Data.instance.Tiempos.DetenerTiempo());
                 return RedirectToAction("Index");
             }
             catch
@@ -297,14 +282,14 @@ namespace Lab1MLS.Controllers
                         break;
                     }
                 }
-                Data.instance.Tiempos.EscribirLinea("Confirmar eliminación: " + Data.instance.Tiempos.DetenerTiempo());
+                ArchivoLog.EscribirLinea("Confirmar eliminación: " + Data.instance.Tiempos.DetenerTiempo());
                 return View(j2);
             }
             else
             {
                 Data.instance.Tiempos.EmpezarTiempo();
                 Jugador j2 = Data.instance.JugadoresLA.findWhere(Jugador => Jugador.Id == id);
-                Data.instance.Tiempos.EscribirLinea("Confirmar eliminación: " + Data.instance.Tiempos.DetenerTiempo());
+                ArchivoLog.EscribirLinea("Confirmar eliminación: " + Data.instance.Tiempos.DetenerTiempo());
                 return View(j2);
             }
             
@@ -330,7 +315,7 @@ namespace Lab1MLS.Controllers
                             break;
                         }
                     }
-                    Data.instance.Tiempos.EscribirLinea("Eliminar Jugador: " + Data.instance.Tiempos.DetenerTiempo());
+                    ArchivoLog.EscribirLinea("Eliminar Jugador: " + Data.instance.Tiempos.DetenerTiempo());
                     return RedirectToAction("Index");
                 }
                 else
@@ -338,7 +323,7 @@ namespace Lab1MLS.Controllers
                     Data.instance.Tiempos.EmpezarTiempo();
                     Jugador j2 = Data.instance.JugadoresLA.findWhere(Jugador => Jugador.Id == id);
                     Data.instance.JugadoresLA.Eliminar_especifico(j2);
-                    Data.instance.Tiempos.EscribirLinea("Eliminar Jugador: " + Data.instance.Tiempos.DetenerTiempo());
+                    ArchivoLog.EscribirLinea("Eliminar Jugador: " + Data.instance.Tiempos.DetenerTiempo());
                     return RedirectToAction("Index");
                 }
                 
@@ -409,7 +394,7 @@ namespace Lab1MLS.Controllers
                             }
                         }
                     }
-                    Data.instance.Tiempos.EscribirLinea("Eliminar Jugadores por archivo: " + Data.instance.Tiempos.DetenerTiempo());
+                    ArchivoLog.EscribirLinea("Eliminar Jugadores por archivo: " + Data.instance.Tiempos.DetenerTiempo());
                     return RedirectToAction("Index");
                 }
                 else
@@ -419,7 +404,7 @@ namespace Lab1MLS.Controllers
                         Jugador j2 = Data.instance.JugadoresLA.findWhere(Jugador => ((Jugador.Name == j1.Name) && (Jugador.LastName == j1.LastName)));
                         Data.instance.JugadoresLA.Eliminar_especifico(j2);                                                
                     }
-                    Data.instance.Tiempos.EscribirLinea("Eliminar Jugadores por archivo: " + Data.instance.Tiempos.DetenerTiempo());
+                    ArchivoLog.EscribirLinea("Eliminar Jugadores por archivo: " + Data.instance.Tiempos.DetenerTiempo());
                     return RedirectToAction("Index");
                 }
                 
@@ -540,7 +525,7 @@ namespace Lab1MLS.Controllers
                     }
                 }
 
-                Data.instance.Tiempos.EscribirLinea("Busqueda de Jugadores: " + Data.instance.Tiempos.DetenerTiempo());
+                ArchivoLog.EscribirLinea("Busqueda de Jugadores: " + Data.instance.Tiempos.DetenerTiempo());
                 return RedirectToAction("Busqueda");
             }
             catch
